@@ -1,3 +1,5 @@
+// DEV BRANCH
+
     //Declaration
 //General
 int driverClock = 0; // Cycle counter to manage the program
@@ -17,11 +19,12 @@ int moistStatus = 0; // Value of moisture
 
 // Functrions to blink LED lights
 void blinkLED(int ledPin) {
-  	for (int i = 1; i <= 50; i++) {
-    digitalWrite(ledPin, HIGH); // LED ON
-    delay(100);           // wait
-    digitalWrite(ledPin, LOW);  // LED OFF
-    delay(100);           // wait
+  	if(digitalRead(ledPin)==LOW) {
+
+    digitalWrite(ledPin, HIGH);
+    }
+    else{
+      digitalWrite(ledPin, HIGH);
     }
 }
 
@@ -71,7 +74,7 @@ void loop()
 
   // SENSORS
 
-  moistStatus = analogRead(0);
+  moistStatus = analogRead(moistSensor1);
   delay(10);
 
 
@@ -88,7 +91,7 @@ void loop()
   if (cooldownTimer>=1){
   cooldownTimer--;
   }
-  delay(1000);
+  delay(200);
 }
 
 
