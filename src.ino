@@ -1,7 +1,7 @@
-// C++ code
-//
+
 
 int driverClock = 0; // Allround clock that sets the process
+unsigned long cooldownTimer = 0;
 
 const int motorOutput = 9;
 const int ledGreen1 = 2;
@@ -9,8 +9,8 @@ const int ledRed1 =3;
 const int ledYellow1 =4;
 const int  moistSensor1 = A1;
 
-int cooldownTimer = 0;
-int moistStatus = 870;
+
+int moistStatus = 0;
 
 //Functions
 
@@ -22,7 +22,7 @@ void blinkLED(int ledPin) {
     digitalWrite(ledPin, LOW);  // LED OFF
     delay(100);           // wait
     }
-
+}
 // SETUP
 void setup()
 {
@@ -43,24 +43,18 @@ void loop()
   if (driverClock>=600 && cooldownTimer <=1){
   digitalWrite(motorOutput, HIGH);
   blinkLED(ledGreen1);
-  pumpFuncLOW(motorOutput);
+  digitalWrite(motorOutput, LOW);
   driverClock = 0;
     
   }
     // Sensorbased automation
-  if (moistStatus<600 %% moistStatus>101 %% cooldownTimer <=1){
+  if (moistStatus<600 && cooldownTimer <=1){
     digitalWrite(motorOutput, HIGH);
     blinkLED(ledYellow1);
     digitalWrite(motorOutput, LOW);
     cooldownTimer=60000;
   }
-  else if(moistStatus<100){
-    digitalWrite(motorOutput, HIGH);
-    blinkLED(ledYellow1);
-    digitalWrite(motorOutput, LOW);
-    cooldownTimer=60000;
-  }
-  
+
 
  
   
@@ -71,20 +65,25 @@ void loop()
 
   // SENSORS
 
-  moistStatus = analogRead(A1);
+  moistStatus = analogRead(0);
   delay(10);
 
 
     // READ OUT
+  Serial.println("Moiststatus: ");
   Serial.println(moistStatus);
+  Serial.println("CooldownTimer: ");
   Serial.println(cooldownTimer);
+  Serial.println("Cycle nr: ");
+  Serial.println(driverClock);
   
   // adjustments
   driverClock++;
   if (cooldownTimer>=1){
-  cooldownTimer=cooldownTimer-1;
+  cooldownTimer--;
   }
   delay(1000);
 }
+
 
 
