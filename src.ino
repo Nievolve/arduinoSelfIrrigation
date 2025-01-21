@@ -1,18 +1,19 @@
+    //Declaration
+//General
+int driverClock = 0; // Cycle counter to manage the program
+unsigned long cooldownTimer = 0; // Cooldown counter to prevent functions to execute
 
+// Declared IO
+const int motorOutput = 9; // Digital output for pump/motor
+const int ledGreen1 = 2; // Digital output for LED(Green)
+const int ledRed1 =3; // Digital output for LED(Red)
+const int ledYellow1 =4; // Digital output for LED(Yellow)
+const int  moistSensor1 = A1; // Analog input for sensor (moist)
 
-int driverClock = 0; // Allround clock that sets the process
-unsigned long cooldownTimer = 0;
+//Declared varibels
+int moistStatus = 0; // Value of moisture
 
-const int motorOutput = 9;
-const int ledGreen1 = 2;
-const int ledRed1 =3;
-const int ledYellow1 =4;
-const int  moistSensor1 = A1;
-
-
-int moistStatus = 0;
-
-//Functions
+    //Functions Section
 
 // Functrions to blink LED lights
 void blinkLED(int ledPin) {
@@ -23,7 +24,12 @@ void blinkLED(int ledPin) {
     delay(100);           // wait
     }
 }
-// SETUP
+
+
+
+
+
+    // SETUP Section
 void setup()
 {
   pinMode(motorOutput, OUTPUT);
@@ -35,7 +41,7 @@ void setup()
 
   Serial.begin(9600);
 }
-
+    // LOOP Section
 void loop()
 {
 
