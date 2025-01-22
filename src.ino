@@ -6,6 +6,11 @@
 //General
 unsigned long currentMillis = 0; // Cycle counter to manage the program
 unsigned long cooldownTimer = 0; // Cooldown counter to prevent functions to execute
+unsigned long maxCycle = 4,294,967,295;
+
+//Interval of irrigation
+int examplePlant1 = maxCycle/50 // Waterpump is activated once per day 
+int examplePlant2 = maxCycle/(50/7) //Waterpump is activated once per week
 
 // Declared IO
 const int motorOutput = 9; // Digital output for pump/motor
@@ -45,7 +50,7 @@ void setup()
     // LOOP Section
 void loop()
 {
-  currentMillis = millis();
+  
 
     // Timebased automation
   if (currentMillis>=10000 && cooldownTimer <=1){
