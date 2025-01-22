@@ -1,3 +1,6 @@
+// Test Developtment
+  // For hardware testing
+
     //Declaration
 //General
 int driverClock = 0; // Cycle counter to manage the program
@@ -29,7 +32,7 @@ void blinkLED(int ledPin) {
 
 
 
-    // SETUP Section
+
 void setup()
 {
   pinMode(motorOutput, OUTPUT);
@@ -41,54 +44,12 @@ void setup()
 
   Serial.begin(9600);
 }
-    // LOOP Section
 void loop()
 {
+moistStatus = analogRead(moistSensor1);
 
-    // Timebased automation
-  if (driverClock>=600 && cooldownTimer <=1){
-  digitalWrite(motorOutput, HIGH);
-  blinkLED(ledGreen1);
-  digitalWrite(motorOutput, LOW);
-  driverClock = 0;
-    
-  }
-    // Sensorbased automation
-  if (moistStatus<600 && cooldownTimer <=1){
-    digitalWrite(motorOutput, HIGH);
-    blinkLED(ledYellow1);
-    digitalWrite(motorOutput, LOW);
-    cooldownTimer=60000;
-  }
-
-
+Serial.println(moistStatus);
  
-  
-  // loop
-
-
-  
-
-  // SENSORS
-
-  moistStatus = analogRead(0);
-  delay(10);
-
-
-    // READ OUT
-  Serial.println("Moiststatus: ");
-  Serial.println(moistStatus);
-  Serial.println("CooldownTimer: ");
-  Serial.println(cooldownTimer);
-  Serial.println("Cycle nr: ");
-  Serial.println(driverClock);
-  
-  // adjustments
-  driverClock++;
-  if (cooldownTimer>=1){
-  cooldownTimer--;
-  }
-  delay(1000);
 }
 
 
