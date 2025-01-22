@@ -1,23 +1,25 @@
-// DEV BRANCH
-// Build
+// Logic Dev Branch
+// Pre-Build
 
 
     //Declaration
 //General
-unsigned long currentMillis = 0; // Cycle counter to manage the program
 unsigned long cooldownTimer = 0; // Cooldown counter to prevent functions to execute
-unsigned long maxCycle = 4,294,967,295;
+unsigned long maxCycle = 4294967295;
+int driverClock = 1;
 
 //Interval of irrigation
-int examplePlant1 = maxCycle/50 // Waterpump is activated once per day 
-int examplePlant2 = maxCycle/(50/7) //Waterpump is activated once per week
+int examplePlant1 = maxCycle/50; // Waterpump is activated once per day 
+int examplePlant2 = maxCycle/(50/7); //Waterpump is activated once per week
 
 // Declared IO
 const int motorOutput = 9; // Digital output for pump/motor
-const int ledGreen1 = 2; // Digital output for LED(Green)
-const int ledRed1 =3; // Digital output for LED(Red)
-const int ledYellow1 =4; // Digital output for LED(Yellow)
-const int  moistSensor1 = A1; // Analog input for sensor (moist)
+const int ledGreen = 2; // Digital output for LED(Green)
+const int ledRed =3; // Digital output for LED(Red)
+const int ledYellow =4; // Digital output for LED(Yellow)
+const int ledBlue = 6;
+const int ledWhite = 7;
+const int  moistSensor = A1; // Analog input for sensor (moist)
 
 //Declared varibels
 int moistStatus = 0; // Value of moisture
@@ -35,66 +37,51 @@ void blinkLED(int ledPin) {
     }
 }
 
+
     // SETUP Section
 void setup()
 {
   pinMode(motorOutput, OUTPUT);
-  pinMode(ledGreen1, OUTPUT);
-  pinMode(ledRed1, OUTPUT);
-  pinMode(moistSensor1, INPUT);
-  pinMode(A0, OUTPUT);
-  pinMode(ledYellow1,OUTPUT);
+  pinMode(ledGreen, OUTPUT);
+  pinMode(ledRed, OUTPUT);
+  pinMode(ledYellow,OUTPUT);
+  pinMode(ledBlue, OUTPUT);
+  pinMode(ledWhite, OUTPUT);
 
+  pinMode(moistSensor, INPUT);
   Serial.begin(9600);
 }
-    // LOOP Section
+
 void loop()
 {
   
 
     // Timebased automation
-  if (currentMillis>=10000 && cooldownTimer <=1){
+  if (millis()>=12000*driverClock){
   digitalWrite(motorOutput, HIGH);
-  blinkLED(ledGreen1);
+  blinkLED(ledGreen);
+  delay(5000);
   digitalWrite(motorOutput, LOW);
-  currentMillis = currentMillis - millis();
+  blinkLED(ledGreen);
+  driverClock++;
     
-  }
-    // Sensorbased automation
-  if (moistStatus<600 && cooldownTimer <=1){
-    digitalWrite(motorOutput, HIGH);
-    blinkLED(ledYellow1);
-    digitalWrite(motorOutput, LOW);
-    cooldownTimer=60000;
   }
 
 
  
   
-  // loop
 
-
-  
-
-  // SENSORS
-
-  moistStatus = analogRead(moistSensor1);
-  delay(10);
 
 
     // READ OUT
-  Serial.println("Moiststatus: ");
-  Serial.println(moistStatus);
-  Serial.println("CooldownTimer: ");
-  Serial.println(cooldownTimer);
-  Serial.println("Cycle nr: ");
-  Serial.println(currentMillis);
+
+  Serial.println(millis());
   
   // adjustments
   if (cooldownTimer>=1){
   cooldownTimer--;
   }
-  delay(200);
+
 }
 
 
