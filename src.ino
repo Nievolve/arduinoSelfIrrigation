@@ -1,8 +1,10 @@
 // DEV BRANCH
+// Build
+
 
     //Declaration
 //General
-int driverClock = 0; // Cycle counter to manage the program
+unsigned long currentMillis = 0; // Cycle counter to manage the program
 unsigned long cooldownTimer = 0; // Cooldown counter to prevent functions to execute
 
 // Declared IO
@@ -28,10 +30,6 @@ void blinkLED(int ledPin) {
     }
 }
 
-
-
-
-
     // SETUP Section
 void setup()
 {
@@ -47,13 +45,14 @@ void setup()
     // LOOP Section
 void loop()
 {
+  currentMillis = millis();
 
     // Timebased automation
-  if (driverClock>=600 && cooldownTimer <=1){
+  if (currentMillis>=10000 && cooldownTimer <=1){
   digitalWrite(motorOutput, HIGH);
   blinkLED(ledGreen1);
   digitalWrite(motorOutput, LOW);
-  driverClock = 0;
+  currentMillis = currentMillis - millis();
     
   }
     // Sensorbased automation
@@ -84,10 +83,9 @@ void loop()
   Serial.println("CooldownTimer: ");
   Serial.println(cooldownTimer);
   Serial.println("Cycle nr: ");
-  Serial.println(driverClock);
+  Serial.println(currentMillis);
   
   // adjustments
-  driverClock++;
   if (cooldownTimer>=1){
   cooldownTimer--;
   }
