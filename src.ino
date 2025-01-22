@@ -13,12 +13,15 @@ const int ledRed1 =3; // Digital output for LED(Red)
 const int ledYellow1 =4; // Digital output for LED(Yellow)
 const int  moistSensor1 = A1; // Analog input for sensor (moist)
 
+
 //Declared varibels
 int moistStatus = 0; // Value of moisture
 
     //Functions Section
 
-// Functrions to blink LED lights
+
+  // Functions
+
 void blinkLED(int ledPin) {
   	for (int i = 1; i <= 50; i++) {
     digitalWrite(ledPin, HIGH); // LED ON
@@ -46,7 +49,15 @@ void setup()
 }
 void loop()
 {
+
+
 moistStatus = analogRead(moistSensor1);
+
+if (moistStatus>= 867/2){
+  digitalWrite(motorOutput, HIGH);
+  blinkLED(ledYellow1);
+  digitalWrite(motorOutput, LOW);
+}
 
 Serial.println(moistStatus);
  
