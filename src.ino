@@ -1,38 +1,41 @@
 // Logic Dev Branch
 // Pre-Build
+int motorOutput = 13;
+int driveClock = 0;
+int greenLED=5;
+int yellowLED=4;
+int redLED=3;
+void setup()
+{
+pinMode(motorOutput, OUTPUT);
+pinMode(greenLED, OUTPUT);
+pinMode(yellowLED, OUTPUT);
+pinMode(redLED, OUTPUT);
 
-
-const int DIGITAL_PIN = 3;
-const int ANALOG_PIN = A0;
-const int SENSOR_POWER = 2;
-int moistVal;
-bool isMoist = false;
-String moisture;
-void setup() {
-
+digitalWrite(greenLED, LOW);
+digitalWrite(yellowLED, LOW);
+digitalWrite(redLED, LOW);
 Serial.begin(9600);
-pinMode(DIGITAL_PIN, INPUT);
-pinMode(SENSOR_POWER, OUTPUT);
-pinMode(ANALOG_PIN, INPUT);
-digitalWrite(SENSOR_POWER, LOW);
 }
-void loop() {
-digitalWrite(SENSOR_POWER, HIGH);
-delay(100);
- moistVal = analogRead(ANALOG_PIN);
- isMoist = digitalRead(DIGITAL_PIN);
-digitalWrite(SENSOR_POWER, LOW);
-if (isMoist==false) {
- moisture = "No";
- }
-else {
- moisture = "Yes";
- }
- moistVal = map(moistVal, 0, 1023, 100, 0);
-Serial.print("Raining: ");
-Serial.println(moisture);
-Serial.print("Moisture: ");
-Serial.print(moistVal);
-Serial.println("%\n");
-delay(10000);
-} 
+
+void loop()
+{
+if (driveClock>=1){
+  digitalWrite(motorOutput, HIGH);
+  delay(15000);
+  digitalWrite(motorOutput, LOW);
+  driveClock = 0;
+  }
+    digitalWrite(greenLED, HIGH);
+    
+    delay(5000);
+    digitalWrite(yellowLED,HIGH);
+    delay(5000);
+    digitalWrite(redLED, HIGH);
+    delay(4950);
+    digitalWrite(greenLED,LOW);
+    digitalWrite(yellowLED,LOW);
+    digitalWrite(redLED,LOW);
+    delay(50);
+    driveClock++;
+}
