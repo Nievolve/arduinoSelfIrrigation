@@ -3,7 +3,7 @@
 
 
 const int DIGITAL_PIN = 3;
-const int ANALOG_PIN = 0;
+const int ANALOG_PIN = A0;
 const int SENSOR_POWER = 2;
 int moistVal;
 bool isMoist = false;
@@ -18,7 +18,7 @@ digitalWrite(SENSOR_POWER, LOW);
 }
 void loop() {
 digitalWrite(SENSOR_POWER, HIGH);
-delay(10);
+delay(100);
  moistVal = analogRead(ANALOG_PIN);
  isMoist = digitalRead(DIGITAL_PIN);
 digitalWrite(SENSOR_POWER, LOW);
