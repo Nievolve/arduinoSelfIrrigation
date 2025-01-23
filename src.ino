@@ -33,8 +33,8 @@ if(digitalRead(ledPin)==LOW) {
 }
 }
 void offLED(int ledPin){
-if(digitalRead(ledPin)==LOW) {
-  digitalWrite(ledPin, HIGH);
+if(digitalRead(ledPin)==HIGH) {
+  digitalWrite(ledPin, LOW);
 }
 }
 
@@ -63,7 +63,7 @@ void loop()
   if (millis()>=12000*driverClock){
   digitalWrite(motorOutput, HIGH);
   onLED(ledGreen);
-  delay(5000);
+  delay(4000);
   digitalWrite(motorOutput, LOW);
   offLED(ledGreen);
   driverClock++;
