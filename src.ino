@@ -27,14 +27,15 @@ int moistStatus = 0; // Value of moisture
     //Functions Section
 
 // Functrions to blink LED lights
-void blinkLED(int ledPin) {
-  	if(digitalRead(ledPin)==LOW) {
-
-    digitalWrite(ledPin, HIGH);
-    }
-    else{
-      digitalWrite(ledPin, HIGH);
-    }
+void onLED(int ledPin) {
+if(digitalRead(ledPin)==LOW) {
+  digitalWrite(ledPin, HIGH);
+}
+}
+void offLED(int ledPin){
+if(digitalRead(ledPin)==LOW) {
+  digitalWrite(ledPin, HIGH);
+}
 }
 
 
@@ -50,7 +51,7 @@ void setup()
   pinMode(ledWhite, OUTPUT);
 
   pinMode(moistSensor, INPUT);
-  
+
   Serial.begin(9600);
 }
 
@@ -61,23 +62,17 @@ void loop()
     // Timebased automation
   if (millis()>=12000*driverClock){
   digitalWrite(motorOutput, HIGH);
-  blinkLED(ledGreen);
+  onLED(ledGreen);
   delay(5000);
   digitalWrite(motorOutput, LOW);
-  blinkLED(ledGreen);
+  offLED(ledGreen);
   driverClock++;
     
   }
 
-
- 
-  
-
-
-
     // READ OUT
 
-  Serial.println(millis());
+  Serial.println(driverClock);
   
   // adjustments
   if (cooldownTimer>=1){
