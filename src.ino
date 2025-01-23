@@ -1,85 +1,88 @@
-// Logic Dev Branch
-// Pre-Build
+  // Logic Dev Branch
+  // Pre-Build
 
 
-    //Declaration
-//General
-unsigned long cooldownTimer = 0; // Cooldown counter to prevent functions to execute
-unsigned long maxCycle = 4294967295;
-int driverClock = 1;
+      //Declaration
+  //General
+  unsigned long cooldownTimer = 0; // Cooldown counter to prevent functions to execute
+  unsigned int driverClock = 0;
 
-//Interval of irrigation
-int examplePlant1 = maxCycle/50; // Waterpump is activated once per day 
-int examplePlant2 = maxCycle/(50/7); //Waterpump is activated once per week
+  //Interval of irrigation
+  int programCycleTime=1000;
+  int irrigationTime = 50000;
 
-// Declared IO
-const int motorOutput = 9; // Digital output for pump/motor
-const int ledGreen = 2; // Digital output for LED(Green)
-const int ledRed =3; // Digital output for LED(Red)
-const int ledYellow =4; // Digital output for LED(Yellow)
-const int ledBlue = 6;
-const int ledWhite = 7;
-const int  moistSensor = A1; // Analog input for sensor (moist)
+  // Declared IO
+  const int motorOutput = 9; // Digital output for pump/motor
+  const int ledGreen = 2; // Digital output for LED(Green)
+  const int ledRed =3; // Digital output for LED(Red)
+  const int ledYellow =4; // Digital output for LED(Yellow)
+  const int ledBlue = 6;
+  const int ledWhite = 7;
+  const int  moistSensor = A1; // Analog input for sensor (moist)
 
-//Declared varibels
-int moistStatus = 0; // Value of moisture
+  //Declared varibels
+  bool digitalMoist = false; // Value of moisture
+  int analogMoist;
 
-    //Functions Section
+      //Functions Section
 
-// Functrions to blink LED lights
-void onLED(int ledPin) {
-if(digitalRead(ledPin)==LOW) {
-  digitalWrite(ledPin, HIGH);
-}
-}
-void offLED(int ledPin){
-if(digitalRead(ledPin)==HIGH) {
-  digitalWrite(ledPin, LOW);
-}
-}
+  // Functrions to blink LED lights
+  void onLED(int ledPin) {
+  if(digitalRead(ledPin)==LOW) {
+    digitalWrite(ledPin, HIGH);
+  }
+  }
+  void offLED(int ledPin){
+  if(digitalRead(ledPin)==HIGH) {
+    digitalWrite(ledPin, LOW);
+  }
+  }
 
 
-    // SETUP Section
-void setup()
-{
-  pinMode(motorOutput, OUTPUT);
+      // SETUP Section
+  void setup()
+  {
+    pinMode(motorOutput, OUTPUT);
 
-  pinMode(ledGreen, OUTPUT);
-  pinMode(ledRed, OUTPUT);
-  pinMode(ledYellow,OUTPUT);
-  pinMode(ledBlue, OUTPUT);
-  pinMode(ledWhite, OUTPUT);
+    pinMode(ledGreen, OUTPUT);
+    pinMode(ledRed, OUTPUT);
+    pinMode(ledYellow,OUTPUT);
+    pinMode(ledBlue, OUTPUT);
+    pinMode(ledWhite, OUTPUT);
 
-  pinMode(moistSensor, INPUT);
+    pinMode(moistSensor, INPUT);
 
-  Serial.begin(9600);
-}
+    Serial.begin(9600);
+  }
 
-void loop()
-{
+  void loop()
+  {
+      // adjustments
+    if (cooldownTimer>=1){
+    cooldownTimer--;
+    }
+    driverClock++;
   
-
-    // Timebased automation
-  if (millis()>=12000*driverClock){
-  digitalWrite(motorOutput, HIGH);
-  onLED(ledGreen);
-  delay(4000);
-  digitalWrite(motorOutput, LOW);
-  offLED(ledGreen);
-  driverClock++;
+      // Timebased automation
+  if (driverClock>=10){
+    digitalWrite(motorOutput, HIGH);
+    onLED(ledGreen);
+    delay(programCycleTime);
+    digitalWrite(motorOutput, LOW);
+    offLED(ledGreen);
+    driverClock=0;
+  }
+      
     
+
+      // READ OUT
+
+
+    
+
+    delay(programCycleTime);
+
   }
-
-    // READ OUT
-
-  Serial.println(driverClock);
-  
-  // adjustments
-  if (cooldownTimer>=1){
-  cooldownTimer--;
-  }
-
-}
 
 
 
