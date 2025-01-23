@@ -9,7 +9,7 @@
 
   //Interval of irrigation
   int programCycleTime=1000;
-  int irrigationTime = 50000;
+  unsigned int irrigationTime = 50000;
 
   // Declared IO
   const int motorOutput = 9; // Digital output for pump/motor
@@ -67,7 +67,7 @@
   if (driverClock>=10){
     digitalWrite(motorOutput, HIGH);
     onLED(ledGreen);
-    delay(programCycleTime);
+    delay(irrigationTime);
     digitalWrite(motorOutput, LOW);
     offLED(ledGreen);
     driverClock=0;
@@ -77,7 +77,7 @@
 
       // READ OUT
 
-
+Serial.println(driverClock);
     
 
     delay(programCycleTime);
