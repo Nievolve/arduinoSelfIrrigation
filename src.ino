@@ -42,6 +42,7 @@ void blinkLED(int ledPin) {
 void setup()
 {
   pinMode(motorOutput, OUTPUT);
+
   pinMode(ledGreen, OUTPUT);
   pinMode(ledRed, OUTPUT);
   pinMode(ledYellow,OUTPUT);
@@ -49,6 +50,7 @@ void setup()
   pinMode(ledWhite, OUTPUT);
 
   pinMode(moistSensor, INPUT);
+  
   Serial.begin(9600);
 }
 
