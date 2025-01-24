@@ -1,41 +1,30 @@
-// Logic Dev Branch
+// TestDev Branch
 // Pre-Build
-int motorOutput = 13;
-int driveClock = 0;
-int greenLED=5;
-int yellowLED=4;
-int redLED=3;
+
+unsigned long previousMillis = 0;
+unsigned long currentMillis;
+const long interval= 10000;
+int pumpState = LOW;
+
+int pumpPin = 5;
+
 void setup()
 {
-pinMode(motorOutput, OUTPUT);
-pinMode(greenLED, OUTPUT);
-pinMode(yellowLED, OUTPUT);
-pinMode(redLED, OUTPUT);
-
-digitalWrite(greenLED, LOW);
-digitalWrite(yellowLED, LOW);
-digitalWrite(redLED, LOW);
-Serial.begin(9600);
+  pinMode(pumpPin,OUTPUT);
 }
 
-void loop()
-{
-if (driveClock>=1){
-  digitalWrite(motorOutput, HIGH);
-  delay(15000);
-  digitalWrite(motorOutput, LOW);
-  driveClock = 0;
-  }
-    digitalWrite(greenLED, HIGH);
-    
-    delay(5000);
-    digitalWrite(yellowLED,HIGH);
-    delay(5000);
-    digitalWrite(redLED, HIGH);
-    delay(4950);
-    digitalWrite(greenLED,LOW);
-    digitalWrite(yellowLED,LOW);
-    digitalWrite(redLED,LOW);
-    delay(50);
-    driveClock++;
+
+void loop(){
+  currentMillis = millis();
+  if (currentMillis - previousMillis >= interval) {
+    // save the last time you blinked the LED
+    previousMillis = currentMillis;
+  if(pumpState==LOW){
+    pumpState=HIGH;
+                    }
+  else{
+    pumpState=LOW;
+      }
+digitalWrite(pumpPin, pumpState)
+                                                  }
 }

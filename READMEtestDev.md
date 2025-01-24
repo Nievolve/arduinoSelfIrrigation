@@ -16,3 +16,16 @@ Moistsensor in analog read:
 
 
 ## Arduino R3
+
+
+# PsudoCode
+
+Använd 
+    unsigned long previousMillis = 0;
+med denna if sats i loop
+if (currentMillis - previousMillis >= interval){
+    
+    previousMillis = currentMillis;
+    [[Pump effect]]
+}
+
