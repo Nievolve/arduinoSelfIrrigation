@@ -3,7 +3,8 @@
 
 unsigned long previousMillis = 0;
 unsigned long currentMillis;
-const long interval= 10000;
+const long oninterval= 5000;
+const long offinterval=10000;
 int pumpState = LOW;
 
 int pumpPin = 5;
@@ -16,7 +17,7 @@ void setup()
 
 void loop(){
   currentMillis = millis();
-  if (currentMillis - previousMillis >= interval) {
+  if (currentMillis - previousMillis >= offinterval) {
     // save the last time you blinked the LED
     previousMillis = currentMillis;
   if(pumpState==LOW){
@@ -25,6 +26,10 @@ void loop(){
   else{
     pumpState=LOW;
       }
-digitalWrite(pumpPin, pumpState)
+digitalWrite(pumpPin, pumpState);
                                                   }
+ if(pumpState==HIGH && previousMillis+oninterval<=currentMillis){
+  pumpState = LOW;
+  digitalWrite(pumpPin, pumpState);
+ }
 }
