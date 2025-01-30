@@ -4,6 +4,7 @@
 
       //Declaration
   //TimeRelatedVariabels
+
   unsigned long previousMillis;
   unsigned long currentMillis;
 
@@ -27,8 +28,9 @@
   // Functrions
   void readAnalogValueMoist(pinMoist){
     analogValueMoist = analogRead(pinMoist);
-    int analogCurrentValue = map(analogValueMoist,0,1023,0,100);
-    return analogCurrentValue;
+    int analogCurrentValueProcent = map(analogValueMoist,0,1023,0,100);
+  Serial.println(analogCurrentValueProcent);
+    return analogCurrentValueProcent;
   }
 void controlPump(bool state) {
     digitalWrite(PUMP_PIN, state ? HIGH : LOW);
@@ -40,6 +42,8 @@ void controlPump(bool state) {
     pinMode(pumpOutput, OUTPUT);
     pinMode(analogMoist, INPUT);
     pinMode(digitalMoist, INPUT);
+
+    Serial.begin(9600);
   }
     // LOOP
   void loop()
@@ -47,7 +51,7 @@ void controlPump(bool state) {
     currentMillis = millis();
     
 
-
+  readAnalogValueMoist(moistPinAnalog);
 
 
   }
