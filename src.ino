@@ -9,7 +9,9 @@
 
 
   // Declared IO
-  int pumpOutput = 13;
+  const int pumpOutput = 13;
+  const int moistPinAnalog = A0;
+  const int moistPinDigital = 5;
 
 
   //Declared varibels
@@ -17,12 +19,20 @@
   int analogMoist;
   bool digitalMoist;
   int irrigationTime = 10000; //MilliS
+  
 
 
       //Functions Section
 
   // Functrions
-
+  void readAnalogValueMoist(pinMoist){
+    analogValueMoist = analogRead(pinMoist);
+    int analogCurrentValue = map(analogValueMoist,0,1023,0,100);
+    return analogCurrentValue;
+  }
+void controlPump(bool state) {
+    digitalWrite(PUMP_PIN, state ? HIGH : LOW);
+}
 
       // SETUP Section
   void setup()
@@ -36,6 +46,7 @@
   {
     currentMillis = millis();
     
+
 
 
 
