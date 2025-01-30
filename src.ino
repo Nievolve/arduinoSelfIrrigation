@@ -64,17 +64,15 @@
     driverClock++;
   
       // Timebased automation
-  if (driverClock>=10){
+  if (driverClock>=10 && cooldownTimer<=1){
     digitalWrite(motorOutput, HIGH);
     onLED(ledGreen);
     delay(irrigationTime);
     digitalWrite(motorOutput, LOW);
     offLED(ledGreen);
     driverClock=0;
+    cooldownTimer=0;
   }
-      
-    
-
       // READ OUT
 
 Serial.println(driverClock);
