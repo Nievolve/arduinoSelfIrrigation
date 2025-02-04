@@ -1,4 +1,4 @@
-  // Main Branch
+  // Analog Branch
   // Pre-Build
 
 
@@ -18,7 +18,7 @@
   //Declared varibels
   bool digitalMoist = false; // Value of moisture
   int analogMoist;
-  bool digitalMoist;
+ 
   int irrigationTime = 10000; //MilliS
   
 
@@ -26,14 +26,20 @@
       //Functions Section
 
   // Functrions
-  void readAnalogValueMoist(pinMoist){
-    analogValueMoist = analogRead(pinMoist);
+  void readAnalogValueMoist(){
+    int analogValueMoist = analogRead(moistPinAnalog);
     int analogCurrentValueProcent = map(analogValueMoist,0,1023,0,100);
+    Serial.print("Analog value: ");
   Serial.println(analogCurrentValueProcent);
     return analogCurrentValueProcent;
   }
+  void readDigitalValueMoist(){
+    int digitalValueMoist = digitalRead(moistPinDigital);
+    Serial.print("Digital value: ");
+    Serial.println(digitalValueMoist);
+  }
 void controlPump(bool state) {
-    digitalWrite(PUMP_PIN, state ? HIGH : LOW);
+    digitalWrite(pumpOutput, state ? HIGH : LOW);
 }
 
       // SETUP Section
@@ -49,12 +55,20 @@ void controlPump(bool state) {
   void loop()
   {
     currentMillis = millis();
-    
-
-  readAnalogValueMoist(moistPinAnalog);
-
-
+  if(readDigitalValueMoist==1){
+    controlPump(true);
+    delay(irrigationTime);
+    controlPump(false);
+  }
+  if(readAnalogValueMoist>=1){
+    controlPump(true);
+    delay(irrigationTime);
+    controlPump(false);
   }
 
+  readAnalogValueMoist();
+  readDigitalValueMoist();
 
+  delay(60000); //Wait an hour
 
+  }
